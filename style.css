@@ -1,0 +1,229 @@
+/* Root theme variables */
+:root {
+  --primary-color: #05386b;       /* deep blue for headings and accents */
+  --secondary-color: #379683;     /* muted teal accent */
+  --accent-color: #5cdb95;        /* soft green for buttons and highlights */
+  --light-bg: #f7f9fc;            /* light background for sections */
+  --dark-overlay: rgba(0, 0, 0, 0.5);
+  --text-color: #333;
+  --link-color: #379683;
+  --max-width: 1000px;
+  --transition-speed: 0.3s;
+  font-family: 'Segoe UI', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Global styles */
+body {
+  margin: 0;
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* Navigation bar */
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+}
+
+.brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: #fff;
+  font-weight: 500;
+  padding: 0.25rem 0;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent-color);
+  transition: width var(--transition-speed);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Hero section */
+.hero-section {
+  background-image: linear-gradient(var(--dark-overlay), var(--dark-overlay)), url('hero.png');
+  background-size: cover;
+  background-position: center;
+  height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+.hero-content {
+  max-width: var(--max-width);
+  padding: 0 1rem;
+}
+
+.hero-content h1 {
+  font-size: 2.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-content .highlight {
+  color: var(--accent-color);
+}
+
+.tagline {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Sections */
+.section {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.about-section, .projects-section, .research-section, .viz-section, .contact-section {
+  background-color: var(--light-bg);
+}
+
+.skills-list {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+}
+
+.skills-list li {
+  margin-bottom: 0.3rem;
+}
+
+/* Projects */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.project-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card h3 {
+  margin-top: 0;
+}
+
+.project-card p {
+  flex: 1;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--accent-color);
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color var(--transition-speed);
+}
+
+.btn:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Research section */
+.research-section p {
+  margin-bottom: 1rem;
+}
+
+/* Visualisation section */
+.viz-section canvas {
+  max-width: 100%;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+/* Contact section */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.contact-list li {
+  margin-bottom: 0.5rem;
+}
+
+.contact-list strong {
+  color: var(--primary-color);
+}
+
+/* Footer */
+.footer {
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.footer .citations a {
+  color: var(--accent-color);
+  margin: 0 0.3rem;
+  font-size: 0.85rem;
+}
+
+.footer .citations a:hover {
+  text-decoration: underline;
+}
