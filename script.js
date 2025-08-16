@@ -228,6 +228,28 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
     };
 
+    // --- PLOTLY DEMONSTRATION ---
+    /**
+     * Render the Plotly demonstration chart.
+     * Uses pre-defined arrays for epochs and accuracy to build a line chart.
+     */
+    const renderPlotlyDemo = () => {
+        const epochs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+        const accuracy = [0.545244129544237,0.5672789228047704,0.564233600241796,0.5572959251407621,0.5712322717601058,0.6116175350540323,0.6597095979615637,0.6896807473987014,0.6923635545572526,0.6836793666733189,0.6900002938034788,0.723902812459987,0.7726050111047993,0.8097182206708461,0.8195086352047135,0.8113629005000481,0.8111580752436134,0.8374703825968497,0.8844963162898886,0.9273883575218288];
+        const data = [{ x: epochs, y: accuracy, mode: 'lines+markers', name: 'Accuracy', line: { color: '#22D3EE' } }];
+        const isDark = document.documentElement.classList.contains('dark');
+        const layout = {
+            title: 'Model Training Accuracy over Epochs',
+            xaxis: { title: 'Epoch', color: isDark ? '#F9FAFB' : '#4B5563' },
+            yaxis: { title: 'Accuracy', color: isDark ? '#F9FAFB' : '#4B5563' },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: isDark ? '#F9FAFB' : '#4B5563' }
+        };
+        if (typeof Plotly !== 'undefined' && document.getElementById('plotly-chart')) {
+            Plotly.newPlot('plotly-chart', data, layout, { responsive: true });
+        }
+    };
 
     // --- INITIALIZATION ---
     const init = () => {
@@ -238,6 +260,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderInsightsGrid();
         setupEventListeners();
         themeCheck();
+        // Render Plotly demonstration chart
+        renderPlotlyDemo();
     };
     
     init();

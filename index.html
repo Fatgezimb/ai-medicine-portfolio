@@ -11,6 +11,8 @@
     <!-- Chart.js and Adapters -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Plotly for advanced visualizations -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,6 +210,51 @@
                 </header>
                 <div id="insights-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Insight cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Python & ML Demonstration Section -->
+        <section id="python-demo" class="py-24 section-bg fade-in-section">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-light">Python &amp; Machine Learning Demonstration</h2>
+                    <p class="text-lg text-medium mt-2">Examples of using Pandas, Seaborn/Matplotlib and Plotly for data analysis and visualization.</p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Heatmap -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Correlation Heatmap</h3>
+                        <p class="mb-4">This heatmap was generated in Python using Pandas, NumPy and Seaborn to explore correlations in a synthetic dataset.</p>
+                        <img src="data_insight.png" alt="Correlation Heatmap" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  # Python code to generate the heatmap
+  import pandas as pd
+  import numpy as np
+  import seaborn as sns
+  import matplotlib.pyplot as plt
+
+  np.random.seed(42)
+  data = pd.DataFrame({
+      'Feature_A': np.random.normal(0, 1, 100),
+      'Feature_B': np.random.normal(3, 1.5, 100),
+      'Feature_C': np.random.normal(-2, 0.5, 100),
+      'Outcome': np.random.normal(1, 0.7, 100)
+  })
+  corr = data.corr()
+  plt.figure(figsize=(6,5))
+  sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
+  plt.title('Correlation Matrix of Sample Data')
+  plt.tight_layout()
+  plt.savefig('data_insight.png')
+  </code></pre>
+                    </div>
+                    <!-- Plotly Chart -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Training Accuracy Plot</h3>
+                        <p class="mb-4">This interactive Plotly chart shows a simulated model's training accuracy over 20 epochs.</p>
+                        <div id="plotly-chart" class="h-80"></div>
+                    </div>
                 </div>
             </div>
         </section>
