@@ -10,6 +10,9 @@
     
     <!-- Chart.js and Adapters -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet for Interactive Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <!-- Plotly for advanced visualizations -->
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -218,42 +221,126 @@
         <section id="python-demo" class="py-24 section-bg fade-in-section">
             <div class="container mx-auto px-6">
                 <header class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-light">Python &amp; Machine Learning Demonstration</h2>
-                    <p class="text-lg text-medium mt-2">Examples of using Pandas, Seaborn/Matplotlib and Plotly for data analysis and visualization.</p>
+                    <h2 class="text-4xl font-bold text-light">Python &amp; Machine Learning Demonstrations</h2>
+                    <p class="text-lg text-medium mt-2">A collection of examples showcasing data analysis, visualization, and machine learning techniques.</p>
                 </header>
                 <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Heatmap -->
+                    <!-- 1. Correlation Heatmap -->
                     <div class="p-6 rounded-lg bg-background">
                         <h3 class="text-xl font-bold text-light mb-2">Correlation Heatmap</h3>
-                        <p class="mb-4">This heatmap was generated in Python using Pandas, NumPy and Seaborn to explore correlations in a synthetic dataset.</p>
+                        <p class="mb-4">A heatmap generated using Pandas, NumPy and Seaborn to visualize feature correlations.</p>
                         <img src="data_insight.png" alt="Correlation Heatmap" class="rounded-lg mb-4">
                         <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
-  # Python code to generate the heatmap
   import pandas as pd
   import numpy as np
   import seaborn as sns
   import matplotlib.pyplot as plt
 
-  np.random.seed(42)
   data = pd.DataFrame({
-      'Feature_A': np.random.normal(0, 1, 100),
-      'Feature_B': np.random.normal(3, 1.5, 100),
-      'Feature_C': np.random.normal(-2, 0.5, 100),
-      'Outcome': np.random.normal(1, 0.7, 100)
+      'Feature_A': np.random.normal(0,1,100),
+      'Feature_B': np.random.normal(3,1.5,100),
+      'Feature_C': np.random.normal(-2,0.5,100),
+      'Outcome': np.random.normal(1,0.7,100)
   })
   corr = data.corr()
-  plt.figure(figsize=(6,5))
-  sns.heatmap(corr, annot=True, cmap='coolwarm', fmt='.2f')
-  plt.title('Correlation Matrix of Sample Data')
-  plt.tight_layout()
-  plt.savefig('data_insight.png')
+  sns.heatmap(corr, annot=True, cmap='coolwarm')
   </code></pre>
                     </div>
-                    <!-- Plotly Chart -->
+                    <!-- 2. Scatter Plot -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Scatter Plot</h3>
+                        <p class="mb-4">A scatter plot generated in Python to explore the relationship between Feature A and Outcome.</p>
+                        <img src="demo_scatter.png" alt="Scatter Plot" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  import matplotlib.pyplot as plt
+  plt.scatter(data['Feature_A'], data['Outcome'])
+  plt.xlabel('Feature_A'); plt.ylabel('Outcome')
+  plt.title('Feature_A vs Outcome')
+  </code></pre>
+                    </div>
+                    <!-- 3. Histogram -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Histogram</h3>
+                        <p class="mb-4">A histogram showing the distribution of the Outcome variable.</p>
+                        <img src="demo_histogram.png" alt="Histogram of Outcome" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  plt.hist(data['Outcome'], bins=15)
+  plt.xlabel('Outcome'); plt.ylabel('Count')
+  plt.title('Histogram of Outcome')
+  </code></pre>
+                    </div>
+                    <!-- 4. Boxplot -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Boxplot</h3>
+                        <p class="mb-4">A boxplot comparing Feature B across three groups.</p>
+                        <img src="demo_boxplot.png" alt="Boxplot of Feature B" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  import seaborn as sns
+  sns.boxplot(x=groups, y=feature_b)
+  plt.xlabel('Group'); plt.ylabel('Feature_B')
+  </code></pre>
+                    </div>
+                    <!-- 5. Confusion Matrix -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Confusion Matrix</h3>
+                        <p class="mb-4">A heatmap of a confusion matrix for a 3-class classifier.</p>
+                        <img src="demo_confusion_matrix.png" alt="Confusion Matrix" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  from sklearn.metrics import confusion_matrix
+  cm = confusion_matrix(actual, predicted)
+  sns.heatmap(cm, annot=True, fmt='d')
+  </code></pre>
+                    </div>
+                    <!-- 6. Cross-Validation Accuracy -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Cross-Validation Accuracy</h3>
+                        <p class="mb-4">A bar chart displaying classification accuracy across five cross-validation folds.</p>
+                        <img src="demo_bar_accuracy.png" alt="Cross-Validation Accuracy" class="rounded-lg mb-4">
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  folds = [1,2,3,4,5]; accuracy = [0.82,0.85,0.81,0.87,0.84]
+  plt.bar(folds, accuracy)
+  plt.xlabel('Fold'); plt.ylabel('Accuracy')
+  </code></pre>
+                    </div>
+                    <!-- 7. Training Accuracy Plot -->
                     <div class="p-6 rounded-lg bg-background">
                         <h3 class="text-xl font-bold text-light mb-2">Training Accuracy Plot</h3>
-                        <p class="mb-4">This interactive Plotly chart shows a simulated model's training accuracy over 20 epochs.</p>
+                        <p class="mb-4">An interactive Plotly chart showing model accuracy across epochs.</p>
                         <div id="plotly-chart" class="h-80"></div>
+                    </div>
+                    <!-- 8. ROC Curve -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">ROC Curve</h3>
+                        <p class="mb-4">An interactive ROC curve built with Chart.js illustrating classifier performance.</p>
+                        <div class="h-80"><canvas id='demo-roc-chart'></canvas></div>
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  from sklearn.metrics import roc_curve
+  fpr, tpr, _ = roc_curve(true_labels, scores)
+  plt.plot(fpr, tpr)
+  plt.xlabel('False Positive Rate'); plt.ylabel('True Positive Rate')
+  </code></pre>
+                    </div>
+                    <!-- 9. Category Distribution -->
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Category Distribution</h3>
+                        <p class="mb-4">An interactive pie chart showing the distribution of clients across categories.</p>
+                        <div class="h-80"><canvas id='demo-pie-chart'></canvas></div>
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  counts = data['Category'].value_counts()
+  plt.pie(counts, labels=counts.index, autopct='%1.1f%%')
+  </code></pre>
+                    </div>
+                    <!-- 10. Interactive Map -->
+                    <div class="p-6 rounded-lg bg-background md:col-span-2">
+                        <h3 class="text-xl font-bold text-light mb-2">Interactive Map</h3>
+                        <p class="mb-4">A Leaflet map demonstrating geospatial visualization of clinical sites.</p>
+                        <div id='demo-map' class='h-96 rounded-lg mb-4'></div>
+                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
+  import folium
+  m = folium.Map(location=[37.5, -77.5], zoom_start=4)
+  folium.Marker([36.85, -76.28], popup='Norfolk, VA').add_to(m)
+  m.save('map.html')
+  </code></pre>
                     </div>
                 </div>
             </div>
