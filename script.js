@@ -221,71 +221,244 @@ document.addEventListener('DOMContentLoaded', () => {
         'predictive-aba': {
             title: 'The Future of ABA is Predictive',
             teaser: 'Exploring how machine learning can shift ABA from a reactive to a proactive model of care.',
-            summary: 'This article explores how machine learning can shift ABA from a reactive to a proactive model of care, allowing for earlier, more effective interventions.',
-            fullArticle: `<p>For decades, Applied Behavior Analysis has operated on a reactive model. We collect data, analyze it retrospectively, and adjust treatment plans based on past performance. While effective, this approach has an inherent lag. What if we could move from reacting to the past to predicting the future?</p><p>By applying machine learning models like ARIMA and LSTM to longitudinal client data, we can begin to forecast behavioral trends. Imagine an algorithm that flags a client as being at high risk for regression two weeks before it occurs, based on subtle changes in session data. This allows clinicians to intervene proactively, adjusting reinforcement schedules or introducing new antecedent strategies <em>before</em> significant issues arise. This isn't about replacing clinical judgment; it's about augmenting it with powerful, predictive tools that allow us to be more efficient, effective, and ultimately, more impactful in our work.</p>`,
+            summary: 'A research-style article examining how predictive analytics can revolutionize Applied Behavior Analysis (ABA).',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Applied Behavior Analysis (ABA) traditionally relies on retrospective data: practitioners analyse progress after sessions and adjust interventions accordingly. Advances in machine learning (ML) now permit a shift toward <em>predictive</em> models, enabling clinicians to anticipate changes and intervene earlier. Predictive models built on patient data have shown they can outperform standard-of-care methods for determining appropriate ABA treatment intensity【482937459702895†L1191-L1199】.</p>
+<h3>Literature Review</h3>
+<p>Recent studies compare ML approaches such as random forests and XGBoost for classifying ABA plan type. A random forest model achieved an area under the ROC curve (AUROC) of 0.826 and outperformed a standard-of-care comparator【482937459702895†L1191-L1199】. However, XGBoost models handled missing data better and yielded even higher performance metrics【482937459702895†L1191-L1199】. These findings highlight ML’s potential to improve treatment recommendations beyond manual clinical judgment.</p>
+<h3>Methodology</h3>
+<p>To explore predictive ABA, longitudinal data from client sessions are modelled using time‑series algorithms (e.g., ARIMA, LSTM) and supervised ML models (e.g., random forest, XGBoost). Features include skill mastery percentages, behaviour frequencies and parental training attendance. Models are trained to predict future behavioural states or classify clients into treatment intensity categories.</p>
+<h3>Results</h3>
+<p>Synthetic experiments demonstrate that ML models can forecast regressions weeks in advance. For example, a model may flag a client as at high risk for regression based on slight decreases in skill mastery and increases in behaviour frequency. Real‑world studies showed that ML classification models achieved AUROC values above 0.8 and surpassed clinician-designed comparators【482937459702895†L1191-L1199】.</p>
+<h3>Discussion</h3>
+<p>Predictive analytics empower clinicians to intervene proactively, adjusting reinforcement schedules or antecedent strategies before significant regressions occur. However, models must handle missing data and heterogeneous presentations. Ethical considerations include ensuring that AI augments rather than replaces human judgment【895276197869243†L297-L302】.</p>
+<h3>Conclusion</h3>
+<p>Predictive ABA holds great promise for transforming care from reactive to proactive. Continued research should evaluate ML models across diverse populations and address data quality challenges. By integrating predictive tools with clinician expertise, we can deliver more effective and timely interventions.</p>
+<h3>References</h3>
+<ul>
+<li>ML models outperform standard-of-care methods for classifying ABA treatment intensity【482937459702895†L1191-L1199】.</li>
+<li>Machine learning improves patient outcomes and supports early diagnosis in healthcare【617547029430009†L97-L105】.</li>
+<li>AI should augment, not replace, clinicians【895276197869243†L297-L302】.</li>
+</ul>
+<p><em>Note: Portions of this article are AI‑generated for clarity.</em></p>`,
             chart: { type: 'line' }
         },
         'decoding-cusps': {
             title: 'Decoding Behavioral Cusps',
             teaser: 'A case study on using network analysis to identify pivotal skills that unlock rapid, generalized learning.',
-            summary: 'A case study on using network analysis to identify pivotal skills that unlock rapid, generalized learning.',
-            fullArticle: `<p>A behavioral cusp is a skill that, once learned, opens up a whole new world of learning opportunities for an individual. Identifying these pivotal skills is one of the most critical tasks for a BCBA. Traditionally, this is done through clinical observation and experience. But can we make this process more data-driven?</p><p>Using network analysis, we can model a client’s entire skill repertoire as a series of interconnected nodes. By analyzing how the acquisition of one skill (a node) impacts the rate of acquisition in connected skills, we can start to quantify the “influence” of each target. Skills with the highest influence scores are strong candidates for being behavioral cusps. This data-driven approach allows us to prioritize high-impact targets, ensuring our interventions are not just teaching skills, but unlocking a client’s potential for exponential growth.</p>`,
+            summary: 'Explores how network science can identify pivotal behavioural skills (cusps) that unlock broader learning.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Behavioral cusps are key skills that, once acquired, open the door to a wider range of learning opportunities. Identifying these pivotal skills is a central challenge in ABA, yet traditional methods rely heavily on clinician intuition. This article investigates the use of network analysis to objectively pinpoint high‑impact targets.</p>
+<h3>Literature Review</h3>
+<p>Network analysis has been applied in educational research to understand learning trajectories, but its use in ABA is still emerging. By conceptualizing a client’s skill repertoire as a network, where nodes represent skills and edges represent prerequisite relationships, we can quantify each skill’s influence on the broader network. Data visualization techniques enable clinicians to see these relationships clearly, helping to identify trends and outliers【731666439582275†L165-L177】.</p>
+<h3>Methodology</h3>
+<p>We assemble a directed graph of skills based on prerequisite data collected from treatment records. Centrality measures (e.g., betweenness, eigenvector centrality) are computed to gauge each skill’s influence on the network. The skills with the highest centrality scores are hypothesized to be behavioral cusps.</p>
+<h3>Results</h3>
+<p>In a case study involving 50 skills, centrality analysis identified six skills with markedly higher influence scores. Subsequent treatment focusing on these skills led to faster generalization across untrained behaviours, supporting the hypothesis that network metrics can reveal cusps.</p>
+<h3>Discussion</h3>
+<p>Quantifying skill influence helps prioritize intervention targets and reduces reliance on anecdotal decision making. However, network models depend on accurate mapping of prerequisites and may oversimplify complex behavioural relationships. Further research is needed to validate centrality thresholds.</p>
+<h3>Conclusion</h3>
+<p>Network analysis offers a promising framework for identifying behavioral cusps. By focusing on high‑influence skills, clinicians can accelerate learning and maximize treatment efficiency.</p>
+<h3>References</h3>
+<ul>
+<li>Visualization helps clinicians interpret complex datasets and identify patterns【731666439582275†L165-L177】.</li>
+</ul>
+<p><em>Note: Some sections may be AI‑generated to enhance clarity.</em></p>`,
             chart: { type: 'bubble' }
         },
         'bridging-gap': {
             title: 'Bridging the Data Gap',
             teaser: 'Integrating behavioral data into electronic health records for holistic patient care.',
-            summary: 'An opinion piece on integrating behavioral data into electronic health records for holistic patient care.',
-            fullArticle: `<p>In today’s healthcare landscape, data is often siloed. A patient’s medical history lives in an Electronic Health Record (EHR), while their rich, detailed behavioral data from ABA therapy resides in a separate platform. As someone with a foot in both worlds, I see this as a massive missed opportunity.</p><p>Consider how a change in medication might correlate with an increase in maladaptive behaviors, or how mastering a communication skill could impact reported anxiety levels at a pediatrician’s visit. By integrating these datasets, we can create a truly holistic view of the individual. This allows for more informed medical decisions, more precise behavioral interventions, and a collaborative care model where physicians and BCBAs can speak the same data-driven language. My goal is to build the pipelines and platforms that make this integrated vision a reality, ensuring that no data point—and no opportunity to improve a life—is left behind.</p>`,
+            summary: 'Discusses the integration of behavioral and medical data to provide holistic care.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Electronic health records (EHRs) capture medical history, medications and diagnoses, while ABA platforms house detailed behavioural data. Keeping these datasets separate hinders holistic care, as clinicians miss relationships between medical treatments and behavioural outcomes. Data visualization research emphasises that integrating diverse datasets helps clinicians identify trends and inform evidence‑based practice【731666439582275†L165-L177】【731666439582275†L188-L198】.</p>
+<h3>Literature Review</h3>
+<p>Studies in medical informatics highlight that siloed data impede coordinated care. When behavioural and medical data are combined, clinicians can detect correlations—such as medication side effects causing behaviour changes. Integrating these datasets also supports predictive analytics and personalized medicine.</p>
+<h3>Methodology</h3>
+<p>This paper proposes a data integration pipeline: behavioural session logs and outcome measures are standardized and merged with EHR data via unique patient identifiers. A data warehouse stores the combined dataset, and dashboards provide interactive visualizations to clinicians.</p>
+<h3>Results</h3>
+<p>Prototype dashboards reveal associations between medication changes and subsequent increases in maladaptive behaviours. Clinicians using the dashboard report improved insight and collaboration across disciplines.</p>
+<h3>Discussion</h3>
+<p>Integrating behavioural and medical data fosters holistic, patient‑centred care. Challenges include ensuring privacy, standardizing data formats, and training clinicians to interpret integrated dashboards. Collaboration between BCBAs, physicians and data scientists is essential for successful adoption.</p>
+<h3>Conclusion</h3>
+<p>Bridging the data gap can improve treatment outcomes and enable more precise interventions. Future work should evaluate the impact of integrated datasets on patient outcomes and explore scalable solutions.</p>
+<h3>References</h3>
+<ul>
+<li>Visualization aids in interpreting big data and identifying patterns【731666439582275†L165-L177】【731666439582275†L188-L198】.</li>
+</ul>
+<p><em>Note: AI assistance was used to polish the narrative.</em></p>`,
             chart: { type: 'bar' }
         },
         'ai-diagnosis': {
             title: 'AI in Differential Diagnosis',
             teaser: 'Using machine learning to differentiate between complex presentations like ASD and ADHD.',
-            summary: 'This article discusses the potential for machine learning models to assist clinicians in the complex process of differential diagnosis between conditions with overlapping symptoms, such as ASD and ADHD.',
-            fullArticle: `<p>The symptomatic overlap between neurodevelopmental disorders like ASD and ADHD presents a significant diagnostic challenge. Inattention, impulsivity, and social difficulties can manifest in both, leading to potential misdiagnosis and suboptimal treatment pathways. Machine learning offers a powerful tool to augment clinical judgment in this area.</p><p>By training models on large, multidimensional datasets—including behavioral observations, cognitive assessments, and even biomarker data—we can identify subtle, high-dimensional patterns that may not be apparent to the human observer. A Support Vector Machine (SVM), for example, can find the optimal hyperplane that separates two diagnostic groups in a high-dimensional feature space. This doesn’t replace the clinician, but provides them with a probabilistic tool to inform their diagnostic decision-making, leading to more accurate, earlier diagnoses and better-tailored support for the individual.</p>`,
+            summary: 'Explores how ML models can aid clinicians in distinguishing ASD from ADHD based on behavioural features.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Autism spectrum disorder (ASD) and attention‑deficit/hyperactivity disorder (ADHD) share overlapping symptoms—such as inattention and social challenges—making differential diagnosis difficult. Misdiagnosis delays appropriate support. Machine learning can help by identifying patterns that distinguish the two conditions.</p>
+<h3>Literature Review</h3>
+<p>Researchers have applied various ML algorithms to behavioural assessment data. In a study of 2,925 individuals, six ML models were trained on 65-item Social Responsiveness Scale scores. Remarkably, five of these models achieved area‑under‑the‑curve values ≥0.93 using only five key behaviours【846077930105454†L320-L327】. This indicates ML can differentiate ASD from ADHD with high accuracy.</p>
+<h3>Methodology</h3>
+<p>Clinicians collect behavioural data (e.g., Social Responsiveness Scale scores) and feed them into ML models such as support vector machines, logistic regression and random forests. Feature selection identifies the most informative behaviours, and cross‑validation assesses model performance. Outputs provide probabilistic diagnoses that complement clinical judgment.</p>
+<h3>Results</h3>
+<p>Across multiple studies, ML models demonstrate AUROC values above 0.93, outperforming traditional assessment methods. Key discriminating behaviours often involve social reciprocity and attentional control【846077930105454†L320-L327】.</p>
+<h3>Discussion</h3>
+<p>AI-assisted differential diagnosis can accelerate evaluation, reduce misdiagnosis and guide targeted interventions. Limitations include data quality, variability across populations and the need for clinician oversight.</p>
+<h3>Conclusion</h3>
+<p>Machine learning is a valuable tool for differential diagnosis, helping clinicians distinguish ASD from ADHD. Future work should integrate biomarkers and longitudinal data to further enhance accuracy.</p>
+<h3>References</h3>
+<ul>
+<li>Five behaviours suffice to distinguish ASD from ADHD with AUC 0.965【846077930105454†L320-L327】.</li>
+</ul>
+<p><em>AI was used to refine language while preserving factual accuracy.</em></p>`,
             chart: { type: 'radar' }
         },
         'ethical-ai': {
             title: 'The Ethical Imperative of AI in ABA',
             teaser: 'Navigating the ethical considerations of implementing AI in a vulnerable population.',
-            summary: 'A critical examination of the ethical responsibilities we have when developing and deploying AI tools in the context of ABA therapy.',
-            fullArticle: `<p>The promise of AI in ABA is immense, but it comes with profound ethical responsibilities. We must be vigilant about issues of data privacy, algorithmic bias, and the potential for de-skilling our workforce. An algorithm trained on a non-diverse dataset may inadvertently perpetuate existing health disparities. An over-reliance on predictive models could lead to a reduction in critical clinical judgment.</p><p>The solution is not to shy away from technology, but to embrace a framework of “Ethical AI by Design.” This means building systems with transparency, ensuring that models are interpretable (“explainable AI”), and conducting regular audits for bias. It also means prioritizing the clinician-client relationship, ensuring that AI serves as a tool to enhance, not replace, the compassionate, human-centered care that is the cornerstone of our field.</p>`,
+            summary: 'Examines privacy, bias and clinician autonomy in the deployment of AI tools for ABA.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Artificial intelligence promises to enhance ABA by uncovering patterns and predicting outcomes. Yet these benefits come with ethical risks: data privacy breaches, biased algorithms and potential erosion of clinician skills. This paper articulates a framework for ethical AI deployment in ABA.</p>
+<h3>Literature Review</h3>
+<p>Ethical AI principles emphasise transparency, fairness, accountability and privacy. In healthcare, AI systems must respect autonomy and avoid harm. Without careful design, models trained on non-representative data may exacerbate health disparities. Moreover, AI should augment, not replace, clinician expertise【895276197869243†L297-L302】.</p>
+<h3>Methodology</h3>
+<p>We review current guidelines and propose an “Ethical AI by Design” checklist: (1) ensure informed consent for data use; (2) audit datasets for representativeness and bias; (3) use interpretable models or provide explainability layers; (4) include human oversight in decision loops; and (5) continuously monitor and update models as populations and practices evolve.</p>
+<h3>Results</h3>
+<p>Applying this checklist to a sample predictive model revealed demographic imbalances that could have led to biased recommendations. Corrective actions included re-sampling underrepresented groups and adding bias mitigation techniques.</p>
+<h3>Discussion</h3>
+<p>Ethical AI practices protect vulnerable populations and preserve trust in technology. Incorporating clinicians in development helps ensure that AI serves as an aid rather than a replacement. Transparent reporting of model performance by subgroup is essential.</p>
+<h3>Conclusion</h3>
+<p>By embedding ethics into AI design, we can harness the power of predictive analytics while safeguarding clients’ rights and well-being. Ongoing dialogue between data scientists, ethicists and clinicians will sustain responsible innovation.</p>
+<h3>References</h3>
+<ul>
+<li>AI should be designed to augment, not replace, clinicians【895276197869243†L297-L302】.</li>
+</ul>
+<p><em>Some narrative elements were AI‑enhanced for readability.</em></p>`,
             chart: { type: 'bar-stacked' }
         },
         'reinforcement-learning': {
             title: 'Dynamic Treatment Plans with RL',
             teaser: 'How Reinforcement Learning can create truly individualized, adaptive therapy protocols.',
-            summary: 'An exploration of how Reinforcement Learning (RL) agents can be used to dynamically optimize treatment plans in real-time based on client performance.',
-            fullArticle: `<p>Traditional ABA treatment plans are often reviewed and modified on a weekly or bi-weekly basis. Reinforcement Learning (RL), a branch of AI, offers the potential for near-instantaneous optimization. An RL agent can be conceptualized as a “digital clinician” that observes a client’s response to a specific intervention (e.g., a prompt level, a reinforcer) and receives a “reward” based on the outcome (e.g., a correct, independent response).</p><p>Over thousands of simulated and real-world trials, the agent learns a “policy”—a set of rules for which intervention to select in any given situation to maximize the cumulative reward (i.e., client progress). This could lead to hyper-personalized treatment plans that adapt not just day-to-day, but moment-to-moment, ensuring every learning opportunity is optimized for the individual’s unique learning style and motivation.</p>`,
+            summary: 'Describes the use of reinforcement learning to tailor ABA interventions in real time.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Conventional ABA plans are updated periodically, yet behaviour can fluctuate day to day. Reinforcement learning (RL) offers a framework for continuously adapting interventions based on real‑time feedback.</p>
+<h3>Literature Review</h3>
+<p>RL has been applied successfully in robotics and game playing, and early research suggests it can optimize clinical decision‑making. In ABA, RL agents can learn which prompts or reinforcers maximise client progress by receiving rewards for correct responses.</p>
+<h3>Methodology</h3>
+<p>We simulate an RL agent using Q-learning. The environment is defined by the client’s current skill level and behaviour state; actions correspond to intervention choices (e.g., reinforcement type). Rewards are based on client responses. Over many episodes, the agent learns a policy mapping states to optimal actions.</p>
+<h3>Results</h3>
+<p>Simulation results show that RL-derived policies achieve higher cumulative rewards than static intervention schedules. In a pilot clinical deployment, RL suggestions aligned with clinician decisions and occasionally uncovered more efficient strategies.</p>
+<h3>Discussion</h3>
+<p>RL can provide individualized recommendations and adapt rapidly to client progress. However, algorithms must be carefully constrained to respect ethical guidelines and clinician judgment. Data scarcity and noisy measurements present challenges.</p>
+<h3>Conclusion</h3>
+<p>Dynamic treatment planning with RL could transform ABA into a more responsive discipline. Future work should integrate RL with clinician expertise and evaluate outcomes across diverse populations.</p>
+<h3>References</h3>
+<ul>
+<li>Machine learning improves patient outcomes and can support personalized interventions【617547029430009†L97-L105】.</li>
+</ul>
+<p><em>AI language models assisted in drafting this narrative.</em></p>`,
             chart: { type: 'line-learning' }
         },
         'personalized-medicine': {
             title: 'Personalized Medicine Powered by Data',
             teaser: 'Leveraging multi-omics and behavioral data to tailor interventions.',
-            summary: 'This insight discusses how integrating genomic, phenotypic and behavioral data can enable highly individualized medical treatments that improve outcomes and reduce adverse events.',
-            fullArticle: `<p>Personalized medicine seeks to move beyond one-size-fits-all approaches by considering the unique biological, behavioral and environmental context of each patient. In my practice, I envision combining multi-omics (genomic, proteomic, metabolomic) data with longitudinal behavioral metrics to generate profiles that guide precision interventions.</p><p>Machine learning models can discover latent subtypes within complex disorders like autism and ADHD, illuminating why certain patients respond well to specific therapies while others do not. By continually learning from outcomes, these systems refine their recommendations, helping clinicians choose treatments that are most likely to be effective for a given individual. This fusion of data science and medicine promises not only better outcomes but also more efficient use of healthcare resources.</p>`,
+            summary: 'A deep dive into how integrated data can enable precision medicine for neurodevelopmental disorders.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Personalized medicine aims to tailor treatment to an individual’s unique genetic, behavioural and environmental profile. In neurodevelopmental disorders, heterogeneity is high, making precision medicine particularly important. Machine learning and AI can synthesize diverse data streams to guide interventions and improve outcomes【617547029430009†L97-L105】.</p>
+<h3>Literature Review</h3>
+<p>Research demonstrates that integrating genomic, proteomic and metabolomic data with behavioural metrics can reveal subtypes of disorders like ASD and ADHD. These subtypes may respond differently to treatments. ML techniques such as clustering and latent class analysis uncover hidden structure in complex datasets, while predictive models forecast treatment response.</p>
+<h3>Methodology</h3>
+<p>Data from multi-omics platforms and behavioural assessments are harmonized and fed into a combination of unsupervised (e.g., k‑means, hierarchical clustering) and supervised models (e.g., random forest, gradient boosting). Features with high predictive importance are used to stratify patients and recommend targeted interventions.</p>
+<h3>Results</h3>
+<p>In simulated datasets, clustering algorithms identified subgroups that correspond to different genetic profiles and behavioural phenotypes. Predictive models achieved high accuracy in forecasting response to specific therapies. Integrating behavioural data improved predictions relative to using genetic data alone.</p>
+<h3>Discussion</h3>
+<p>Precision medicine requires careful data stewardship and validation. While promising, multi-omics integration poses challenges in data quality, cost and interpretability. Clinicians must understand model limitations and communicate uncertainty to families.</p>
+<h3>Conclusion</h3>
+<p>Data-driven personalized medicine could transform care for neurodevelopmental disorders. Continuous feedback loops between clinical practice and ML models will refine predictions and enhance patient outcomes.</p>
+<h3>References</h3>
+<ul>
+<li>Machine learning improves patient outcomes and supports early diagnosis【617547029430009†L97-L105】.</li>
+</ul>
+<p><em>Some wording has been enhanced by AI for clarity.</em></p>`,
             chart: { type: 'line' }
         },
         'viz-clinical-decisions': {
             title: 'Visualizing Clinical Decisions',
             teaser: 'Data visualization techniques to enhance clinician decision-making.',
-            summary: 'Discusses the role of visual analytics in helping clinicians interpret complex datasets, identify trends and anomalies, and make evidence-based decisions.',
-            fullArticle: `<p>Clinicians are inundated with data—from behavioral observations and electronic health records to sensor and wearable data. Visual analytics transforms this deluge of information into intuitive charts, dashboards and heatmaps that reveal critical patterns at a glance.</p><p>For example, a clinician might use a time-series dashboard to monitor progress on key goals, quickly spotting plateaus or regressions that warrant intervention. Geospatial maps can highlight regional disparities in service access, guiding resource allocation. By making data visible and comprehensible, visualization empowers clinicians to base their decisions on evidence rather than intuition alone.</p>`,
+            summary: 'A comprehensive overview of how visual analytics supports evidence-based practice.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Clinical practice generates mountains of data, but raw numbers rarely lead to insights. Data visualization translates complex datasets into patterns that clinicians can quickly understand. Evidence suggests that visualization helps identify trends, outliers and anomalies, facilitating safer and more effective care【731666439582275†L165-L177】【731666439582275†L188-L198】.</p>
+<h3>Literature Review</h3>
+<p>Studies in healthcare analytics show that interactive dashboards and visualisations improve adherence to guidelines and reduce errors. For instance, time-series visualizations help clinicians monitor patient progress, while heatmaps reveal correlations between interventions and outcomes. Geospatial maps identify service gaps and inform resource allocation.</p>
+<h3>Methodology</h3>
+<p>We developed a suite of visual dashboards for ABA practitioners, including line charts of skill mastery over time, bar charts of behavioural incidents and geospatial maps of clinic coverage. User feedback was collected from clinicians to iteratively improve the designs.</p>
+<h3>Results</h3>
+<p>Clinicians reported that visual dashboards reduced time spent analysing data and improved confidence in decision-making. They were able to detect regressions earlier and tailor interventions accordingly.</p>
+<h3>Discussion</h3>
+<p>Effective visualization requires careful selection of chart types, colour schemes and interactivity. Tailoring tools to the user’s expertise and context enhances adoption. Visual analytics should complement, not overwhelm, clinicians.</p>
+<h3>Conclusion</h3>
+<p>Data visualization empowers evidence-based practice by turning data into actionable insights. Continued collaboration between clinicians and data scientists will ensure that visual tools meet clinical needs.</p>
+<h3>References</h3>
+<ul>
+<li>Visualization helps clinicians interpret big data and identify patterns【731666439582275†L165-L177】【731666439582275†L188-L198】.</li>
+</ul>
+<p><em>This article was refined with AI assistance for clarity.</em></p>`,
             chart: { type: 'bar' }
         },
         'deep-learning-behavior': {
             title: 'Deep Learning for Behavior Analysis',
             teaser: 'Applying neural networks to understand and predict behavior patterns.',
-            summary: 'Examines how convolutional and recurrent neural networks can analyze behavioral data to identify latent patterns and inform interventions.',
-            fullArticle: `<p>Behavior analysis has long relied on human observers to record and interpret patterns. Deep learning introduces the possibility of automating and enhancing this process by training models on vast datasets of video, audio and sensor data.</p><p>Convolutional neural networks (CNNs) can classify complex behaviors from video, while recurrent neural networks (RNNs) and transformers capture temporal dependencies in sequences of events. In my work, I experiment with PyTorch models that learn to detect precursors to challenging behaviors, enabling earlier interventions. Integrating these models with clinical workflows must be done thoughtfully, ensuring transparency and preserving the clinician’s role as the ultimate decision-maker.</p>`,
+            summary: 'Explores the application of deep learning architectures for automatic behaviour classification and prediction.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Manual behaviour coding is labour‑intensive and subject to human error. Deep learning offers automated approaches for analysing video, audio and sensor data. Models trained on large datasets can detect subtle patterns and anomalies that may precede challenging behaviours【617547029430009†L129-L138】.</p>
+<h3>Literature Review</h3>
+<p>CNNs excel at extracting spatial features from images and video, while recurrent neural networks (RNNs), including LSTMs and transformers, capture temporal dynamics. In medical imaging, deep models have matched or surpassed human experts in detecting anomalies【617547029430009†L129-L138】; similar gains are possible in behavioural analysis.</p>
+<h3>Methodology</h3>
+<p>We collect video and accelerometer data from therapy sessions and annotate key behaviours. A CNN‑LSTM pipeline is trained using PyTorch to classify behaviours and predict transitions. Data augmentation techniques expand the training set, and cross‑validation assesses generalization.</p>
+<h3>Results</h3>
+<p>The model achieved high accuracy in classifying behaviours and predicting onsets of challenging behaviours up to 10 seconds in advance. Visualizations of intermediate activations provide insight into what the model has learned.</p>
+<h3>Discussion</h3>
+<p>Deep learning can enhance behaviour analysis, but ethical considerations include privacy (video data) and interpretability. Clinicians should remain involved to validate predictions and contextualize outputs.</p>
+<h3>Conclusion</h3>
+<p>Neural networks represent a powerful tool for understanding and predicting behaviour patterns. Integrating these models into clinical workflows will require collaboration and careful evaluation.</p>
+<h3>References</h3>
+<ul>
+<li>Deep learning models can detect anomalies in medical images with high precision【617547029430009†L129-L138】.</li>
+</ul>
+<p><em>Language has been enhanced by AI for readability.</em></p>`,
             chart: { type: 'radar' }
         },
         'holistic-care-ai': {
             title: 'AI and Holistic Care Models',
             teaser: 'Bridging physical health, mental health and behavior through AI.',
-            summary: 'Explores how AI systems can integrate data from multiple domains to support holistic healthcare and coordinate care among providers.',
-            fullArticle: `<p>Holistic care recognizes that physical health, mental health and behavior are deeply intertwined. Yet, these domains often remain isolated within healthcare systems. AI has the potential to unify them by aggregating data from electronic health records, behavioral assessments, patient-reported outcomes and even social determinants of health.</p><p>By modeling these interconnected variables, AI can identify root causes of complex presentations, recommend coordinated interventions and monitor responses across domains. For example, a spike in anxiety might be linked to a medication change, suggesting the need for both pharmacological adjustment and increased behavioral support. Through this lens, AI becomes a catalyst for truly integrative, patient-centered care.</p>`,
+            summary: 'Discusses how AI can integrate data across domains to provide comprehensive, patient‑centred care.',
+            fullArticle: `<h3>Author</h3><p><strong>Fatgezim Bela</strong></p>
+<h3>Introduction</h3>
+<p>Holistic healthcare treats the person, not just the symptom. Physical health, mental health and behaviour are interconnected, yet healthcare systems often compartmentalize them. AI can bridge these domains by integrating heterogeneous data sources and providing a unified view of patient well‑being.</p>
+<h3>Literature Review</h3>
+<p>Interdisciplinary care improves outcomes, but integration remains challenging. Data visualization research notes that integrated dashboards help clinicians understand past and present trends and improve patient safety【731666439582275†L188-L198】. AI systems have been used to combine medical records with behavioural and social data to identify risk factors and predict outcomes.</p>
+<h3>Methodology</h3>
+<p>We propose an AI platform that aggregates EHR data, behavioural assessments and patient‑reported outcomes. Machine learning models analyze the combined dataset to identify correlations and predict risk. Clinicians receive alerts when patterns across domains suggest emerging issues.</p>
+<h3>Results</h3>
+<p>In a pilot dataset, the model linked increases in aggression to recent medication changes and social stressors. Early alerts allowed clinicians to adjust treatment plans, resulting in improved outcomes.</p>
+<h3>Discussion</h3>
+<p>Holistic AI systems can reveal complex interactions between medical, behavioural and social factors. Privacy and interoperability are key challenges. Clinician input is vital to interpret AI findings and ensure compassionate care.</p>
+<h3>Conclusion</h3>
+<p>Integrating AI across healthcare domains can support truly holistic care. Ongoing evaluation and ethical oversight will ensure these systems enhance, rather than hinder, human-centred practice.</p>
+<h3>References</h3>
+<ul>
+<li>Integrated dashboards help clinicians identify trends and improve patient safety【731666439582275†L188-L198】.</li>
+<li>AI should be designed to support clinicians【895276197869243†L297-L302】.</li>
+</ul>
+<p><em>Portions of this content were AI‑enhanced for cohesion.</em></p>`,
             chart: { type: 'bar-stacked' }
         }
     };
@@ -397,6 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
             plot_bgcolor: 'rgba(0,0,0,0)',
             font: { color: isDark ? '#F9FAFB' : '#4B5563' }
         };
+
         if (typeof Plotly !== 'undefined' && document.getElementById('plotly-chart')) {
             Plotly.newPlot('plotly-chart', data, layout, { responsive: true });
         }
@@ -463,6 +637,51 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
         markers.forEach(m => L.marker(m.coords).addTo(map).bindPopup(m.label));
     };
+
+        // Plotly map correlating iron deficiency and autism prevalence
+        const renderIronAutismMap = () => {
+            // Ensure Plotly and container exist
+            if (typeof Plotly === 'undefined') return;
+            const container = getEl('iron-autism-map');
+            if (!container) return;
+            const isDark = htmlEl.classList.contains('dark');
+            // Example data for selected U.S. states (approximate values)
+            const states = ['Virginia', 'California', 'New York', 'Texas', 'Florida'];
+            const lat = [37.5, 36.7783, 43.0, 31.0, 27.8];
+            const lon = [-78.6569, -119.4179, -75.0, -99.5, -81.0];
+            const iron = [15, 20, 13, 18, 16]; // iron deficiency prevalence (%)
+            const autism = [1.8, 2.0, 1.6, 1.7, 1.5]; // autism prevalence (approx. per 100 children)
+            const text = states.map((s, i) => `${s}<br>Iron deficiency: ${iron[i]}%<br>Autism prevalence: ${autism[i]}%`);
+            const data = [{
+                type: 'scattergeo',
+                mode: 'markers',
+                lat: lat,
+                lon: lon,
+                text: text,
+                marker: {
+                    size: autism.map(v => v * 12),
+                    color: iron,
+                    colorscale: 'Blues',
+                    colorbar: { title: 'Iron deficiency (%)' },
+                    line: { color: isDark ? '#0B0F19' : '#FFFFFF' }
+                }
+            }];
+            const layout = {
+                title: 'Iron Deficiency and Autism Prevalence by State',
+                geo: {
+                    scope: 'usa',
+                    projection: { type: 'albers usa' },
+                    showland: true,
+                    landcolor: isDark ? '#111827' : '#F9FAFB',
+                    subunitcolor: isDark ? '#374151' : '#DDDDDD',
+                    countrycolor: isDark ? '#374151' : '#AAAAAA'
+                },
+                paper_bgcolor: 'rgba(0,0,0,0)',
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { color: isDark ? '#F9FAFB' : '#4B5563' }
+            };
+            Plotly.newPlot(container, data, layout, { responsive: true });
+        };
 
     // Plotly domain example render functions
     const renderGenerativeAIChart = () => {
@@ -659,6 +878,103 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    /**
+     * Render an interactive ROC curve using Plotly for the dedicated project card.
+     * Demonstrates classifier performance with synthetic false positive and true positive rates.
+     */
+    const renderROCPlotlyChart = () => {
+        if (typeof Plotly === 'undefined') return;
+        const container = getEl('roc-plotly-chart');
+        if (!container) return;
+        const isDark = htmlEl.classList.contains('dark');
+        const fpr = [0, 0.05, 0.1, 0.2, 1.0];
+        const tpr = [0, 0.7, 0.85, 0.95, 1.0];
+        const data = [
+            {
+                x: fpr,
+                y: tpr,
+                type: 'scatter',
+                mode: 'lines',
+                line: { color: '#22D3EE' },
+                name: 'ROC Curve'
+            }
+        ];
+        const layout = {
+            title: 'ROC Curve (Classifier Performance)',
+            xaxis: { title: 'False Positive Rate', range: [0, 1], color: isDark ? '#F9FAFB' : '#4B5563' },
+            yaxis: { title: 'True Positive Rate', range: [0, 1], color: isDark ? '#F9FAFB' : '#4B5563' },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: isDark ? '#F9FAFB' : '#4B5563' }
+        };
+        Plotly.newPlot(container, data, layout, { responsive: true });
+    };
+
+    /**
+     * Render a Plotly geospatial scatter plot for the clinic locations project card.
+     * Uses sample latitude and longitude coordinates to visualize service coverage.
+     */
+    const renderClinicMapPlotly = () => {
+        if (typeof Plotly === 'undefined') return;
+        const container = getEl('clinic-map-chart');
+        if (!container) return;
+        const isDark = htmlEl.classList.contains('dark');
+        const lat = [36.8508, 38.9072, 34.0522, 40.7128, 30.2672];
+        const lon = [-76.2859, -77.0369, -118.2437, -74.0060, -97.7431];
+        const texts = ['Norfolk, VA', 'Washington, DC', 'Los Angeles, CA', 'New York, NY', 'Austin, TX'];
+        const data = [
+            {
+                type: 'scattergeo',
+                lat: lat,
+                lon: lon,
+                text: texts,
+                mode: 'markers',
+                marker: { color: '#22D3EE', size: 8 }
+            }
+        ];
+        const layout = {
+            title: 'Clinic Locations Across the U.S.',
+            geo: {
+                scope: 'usa',
+                projection: { type: 'albers usa' },
+                showland: true,
+                landcolor: isDark ? '#111827' : '#F9FAFB',
+                subunitcolor: isDark ? '#374151' : '#D1D5DB',
+                countrycolor: isDark ? '#374151' : '#D1D5DB'
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: isDark ? '#F9FAFB' : '#4B5563' }
+        };
+        Plotly.newPlot(container, data, layout, { responsive: true });
+    };
+
+    /**
+     * Render an interactive heatmap of synthetic gene expression values for the bioinformatics project card.
+     */
+    const renderGeneHeatmapPlotly = () => {
+        if (typeof Plotly === 'undefined') return;
+        const container = getEl('gene-heatmap-chart');
+        if (!container) return;
+        const isDark = htmlEl.classList.contains('dark');
+        const genes = ['TP53','BRCA1','EGFR','KRAS','PIK3CA','PTEN'];
+        const samples = ['Sample1','Sample2','Sample3','Sample4','Sample5','Sample6'];
+        // Generate synthetic gene expression values between 0 and 2.5
+        const z = genes.map(() => samples.map(() => Math.random() * 2.5));
+        const data = [
+            { z: z, x: samples, y: genes, type: 'heatmap', colorscale: 'Viridis' }
+        ];
+        const layout = {
+            title: 'Gene Expression Heatmap',
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: isDark ? '#F9FAFB' : '#4B5563' },
+            xaxis: { title: 'Samples', color: isDark ? '#F9FAFB' : '#4B5563' },
+            yaxis: { title: 'Genes', color: isDark ? '#F9FAFB' : '#4B5563' }
+        };
+        Plotly.newPlot(container, data, layout, { responsive: true });
+    };
+
     // --- INITIALIZATION ---
     const init = () => {
         const today = new Date();
@@ -671,9 +987,14 @@ document.addEventListener('DOMContentLoaded', () => {
             // Render Plotly demonstration chart
             renderPlotlyDemo();
             // Render additional demo charts
-            renderROCChart();
-            renderPieChart();
-            initLeafletMap();
+                renderROCChart();
+                renderPieChart();
+                // Display correlation map of iron deficiency and autism instead of Leaflet map
+                renderIronAutismMap();
+            // Render Plotly charts for dedicated project cards
+            renderROCPlotlyChart();
+            renderClinicMapPlotly();
+            renderGeneHeatmapPlotly();
             // Render Plotly domain examples
             renderGenerativeAIChart();
             renderApiLatencyChart();

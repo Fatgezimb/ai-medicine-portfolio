@@ -135,7 +135,7 @@
             </section>
 
             <!-- Plotly Domain Examples Section -->
-            <section id="plotly-examples" class="py-24 fade-in-section">
+                <section id="plotly-examples" class="py-24">
                 <div class="container mx-auto px-6">
                     <header class="text-center mb-12">
                         <h2 class="text-4xl font-bold text-light">Plotly Domain Examples</h2>
@@ -337,71 +337,7 @@
             </div>
         </section>
 
-        <!-- Plotly Showcase Section -->
-        <section id="plotly-showcase" class="py-24 fade-in-section">
-            <div class="container mx-auto px-6">
-                <header class="text-center mb-12">
-                    <h2 class="text-4xl font-bold text-light">Interactive Plotly Showcase</h2>
-                    <p class="text-lg text-medium mt-2">Examples of interactive charts across domains such as APIs, geospatial, machine learning, NLP, forecasting, sports and industry. All charts are powered by Plotly and themed to match the site.</p>
-                </header>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- API Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">API Rates</h3>
-                        <p class="mb-4">Live exchange rates fetched from a public API and visualised as a bar chart.</p>
-                        <div id="plot-api" class="h-64"></div>
-                    </div>
-                    <!-- Dashboard Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Clinical Dashboard</h3>
-                        <p class="mb-4">A multi-series line chart simulating vital signs over time to demonstrate dashboard capabilities.</p>
-                        <div id="plot-dashboard" class="h-64"></div>
-                    </div>
-                    <!-- Geospatial Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Clinic Locations</h3>
-                        <p class="mb-4">A geospatial scatter plot showing sample clinic locations across the United States.</p>
-                        <div id="plot-geo" class="h-64"></div>
-                    </div>
-                    <!-- Image/Heatmap Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Gene Expression Heatmap</h3>
-                        <p class="mb-4">Heatmap illustrating relative expression of 10 genes across 10 samples.</p>
-                        <div id="plot-heatmap" class="h-64"></div>
-                    </div>
-                    <!-- Machine Learning Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Confusion Matrix</h3>
-                        <p class="mb-4">Confusion matrix for a classifier predicting cancer types.</p>
-                        <div id="plot-confusion" class="h-64"></div>
-                    </div>
-                    <!-- NLP Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Sentiment Analysis</h3>
-                        <p class="mb-4">Bar chart displaying counts of positive, neutral and negative sentiments in session notes.</p>
-                        <div id="plot-nlp" class="h-64"></div>
-                    </div>
-                    <!-- Forecasting Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Treatment Forecast</h3>
-                        <p class="mb-4">A time-series chart comparing actual and predicted patient progress over weeks.</p>
-                        <div id="plot-forecast" class="h-64"></div>
-                    </div>
-                    <!-- Sports Analytics Example -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Sports Analytics</h3>
-                        <p class="mb-4">Visualising player performance metrics from a fictional ABA-based sports program.</p>
-                        <div id="plot-sports" class="h-64"></div>
-                    </div>
-                    <!-- Industry Example: Bioinformatics -->
-                    <div class="p-6 rounded-lg section-bg">
-                        <h3 class="text-xl font-bold text-light mb-2">Bioinformatics Example</h3>
-                        <p class="mb-4">Box plot of simulated gene expression values across two treatment groups.</p>
-                        <div id="plot-bio" class="h-64"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
+
 
         <!-- Insights & Publications Section -->
         <section id="insights" class="py-24 fade-in-section">
@@ -523,23 +459,15 @@
                     <div class="p-6 rounded-lg bg-background">
                         <h3 class="text-xl font-bold text-light mb-2">Category Distribution</h3>
                         <p class="mb-4">An interactive pie chart showing the distribution of clients across categories.</p>
-                        <div class="h-80"><canvas id='demo-pie-chart'></canvas></div>
-                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
-  counts = data['Category'].value_counts()
-  plt.pie(counts, labels=counts.index, autopct='%1.1f%%')
-  </code></pre>
+                        <!-- Plotly/Chart container for the pie chart -->
+                        <div id='demo-pie-chart' class='h-80'></div>
                     </div>
-                    <!-- 10. Interactive Map -->
+                    <!-- 10. Iron & Autism Map -->
                     <div class="p-6 rounded-lg bg-background md:col-span-2">
-                        <h3 class="text-xl font-bold text-light mb-2">Interactive Map</h3>
-                        <p class="mb-4">A Leaflet map demonstrating geospatial visualization of clinical sites.</p>
-                        <div id='demo-map' class='h-96 rounded-lg mb-4'></div>
-                        <pre class="text-sm overflow-auto bg-surface p-4 rounded-lg text-medium"><code>
-  import folium
-  m = folium.Map(location=[37.5, -77.5], zoom_start=4)
-  folium.Marker([36.85, -76.28], popup='Norfolk, VA').add_to(m)
-  m.save('map.html')
-  </code></pre>
+                        <h3 class="text-xl font-bold text-light mb-2">Iron &amp; Autism Map</h3>
+                        <p class="mb-4">An interactive map exploring the correlation between iron deficiency and autism prevalence across selected states.</p>
+                        <!-- Plotly container for the iron deficiency vs autism correlation map -->
+                        <div id='iron-autism-map' class='h-96 rounded-lg mb-4'></div>
                     </div>
                 </div>
             </div>
