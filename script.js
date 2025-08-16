@@ -12,7 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const sunIcon = getEl('theme-icon-sun');
     const moonIcon = getEl('theme-icon-moon');
 
-    const themeCheck = () => {
+        // Set dark mode by default if no preference is stored
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
+
+        const themeCheck = () => {
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             htmlEl.classList.add('dark');
             moonIcon.classList.add('hidden');
@@ -33,6 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     themeToggle.addEventListener('click', themeSwitch);
+
+        // Ensure dark mode is selected by default on first load
+        if (!localStorage.getItem('theme')) {
+            localStorage.setItem('theme', 'dark');
+        }
 
     // --- DATA GENERATION ---
     const generateDummyData = (today) => {
@@ -454,6 +464,201 @@ document.addEventListener('DOMContentLoaded', () => {
         markers.forEach(m => L.marker(m.coords).addTo(map).bindPopup(m.label));
     };
 
+    // Plotly domain example render functions
+    const renderGenerativeAIChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const x = Array.from({length: 50}, (_, i) => i + 1);
+        const y = x.map(i => Math.exp(-i/10) + (Math.random() - 0.5) * 0.1);
+        const data = [{ x: x, y: y, type: 'scatter', mode: 'lines+markers', line: { color: '#22D3EE' }, marker: { color: '#F472B6', size: 5 } }];
+        const layout = { title: 'Generative AI Token Distribution', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Token Index', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Surprisal', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('generative-ai-chart')) {
+            Plotly.newPlot('generative-ai-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderApiLatencyChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const endpoints = ['Login', 'GetUser', 'UpdateRecord', 'CreateSession', 'Logout'];
+        const latency = endpoints.map(() => Math.random() * 500 + 100);
+        const data = [{ x: endpoints, y: latency, type: 'bar', marker: { color: '#22D3EE' } }];
+        const layout = { title: 'API Response Time (ms)', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Milliseconds', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('api-latency-chart')) {
+            Plotly.newPlot('api-latency-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderDashboardMetricsChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const accuracy = months.map(() => Math.random() * 20 + 80);
+        const precision = months.map(() => Math.random() * 15 + 75);
+        const recall = months.map(() => Math.random() * 15 + 70);
+        const data = [
+            { x: months, y: accuracy, name: 'Accuracy', type: 'scatter', line: { color: '#22D3EE' } },
+            { x: months, y: precision, name: 'Precision', type: 'scatter', line: { color: '#F472B6' } },
+            { x: months, y: recall, name: 'Recall', type: 'scatter', line: { color: '#FBBF24' } }
+        ];
+        const layout = { title: 'Dashboard Model Metrics', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Percentage (%)', range: [0,100], color: isDark ? '#F9FAFB' : '#4B5563' }, legend: { orientation: 'h' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('dashboard-metrics-chart')) {
+            Plotly.newPlot('dashboard-metrics-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderGeospatialChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const lats = [36.8508, 38.9072, 34.0522, 40.7128];
+        const longs = [-76.2859, -77.0369, -118.2437, -74.0060];
+        const texts = ['Norfolk, VA', 'Washington, DC', 'Los Angeles, CA', 'New York, NY'];
+        const data = [{ type: 'scattergeo', lat: lats, lon: longs, text: texts, mode: 'markers', marker: { color: '#22D3EE', size: 8 } }];
+        const layout = { title: 'Clinic Locations', geo: { scope: 'usa', bgcolor: 'rgba(0,0,0,0)', lakecolor: 'rgba(0,0,0,0)', landcolor: 'rgba(0,0,0,0)', subunitcolor: isDark ? '#374151' : '#D1D5DB', countrycolor: isDark ? '#374151' : '#D1D5DB', lonaxis: { showgrid: false }, lataxis: { showgrid: false } }, paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('geospatial-chart')) {
+            Plotly.newPlot('geospatial-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderSpectrogramChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const x = Array.from({ length: 30 }, (_, i) => i);
+        const y = Array.from({ length: 30 }, (_, i) => i);
+        const z = Array.from({ length: 30 }, () => Array.from({ length: 30 }, () => Math.random()));
+        const data = [{ z: z, x: x, y: y, type: 'heatmap', colorscale: 'Viridis' }];
+        const layout = { title: 'Synthetic Spectrogram', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Time', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Frequency', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('spectrogram-chart')) {
+            Plotly.newPlot('spectrogram-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderMLDecisionChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const x0 = Array.from({ length: 50 }, () => [Math.random() * 2 + 1, Math.random() * 2 + 1]);
+        const x1 = Array.from({ length: 50 }, () => [Math.random() * 2 + 3, Math.random() * 2 + 3]);
+        const data = [
+            { x: x0.map(p => p[0]), y: x0.map(p => p[1]), mode: 'markers', type: 'scatter', name: 'Class 0', marker: { color: '#22D3EE' } },
+            { x: x1.map(p => p[0]), y: x1.map(p => p[1]), mode: 'markers', type: 'scatter', name: 'Class 1', marker: { color: '#F472B6' } }
+        ];
+        const layout = { title: 'ML Decision Boundary (Synthetic)', shapes: [ { type: 'line', x0: 0, y0: 5, x1: 6, y1: 0, line: { color: isDark ? '#F9FAFB' : '#4B5563', dash: 'dash' } } ], paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Feature 1', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Feature 2', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('ml-decision-chart')) {
+            Plotly.newPlot('ml-decision-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderNLPFrequencyChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const words = ['analysis','behavior','data','model','therapy','patient','research','science','medical','learning'];
+        const counts = words.map(() => Math.floor(Math.random() * 50 + 10));
+        const data = [{ x: words, y: counts, type: 'bar', marker: { color: '#22D3EE' } }];
+        const layout = { title: 'NLP Word Frequency', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Word', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Count', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('nlp-frequency-chart')) {
+            Plotly.newPlot('nlp-frequency-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderForecastChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const days = Array.from({ length: 15 }, (_, i) => i + 1);
+        const actual = days.map(d => Math.sin(d/2) * 10 + 50 + (Math.random() - 0.5) * 5);
+        const forecast = days.map(d => Math.sin(d/2) * 10 + 50 + (Math.random() - 0.5) * 3 + 3);
+        const data = [
+            { x: days, y: actual, name: 'Actual', type: 'scatter', line: { color: '#22D3EE' } },
+            { x: days, y: forecast, name: 'Forecast', type: 'scatter', line: { color: '#F472B6', dash: 'dot' } }
+        ];
+        const layout = { title: 'Predictive Analytics Forecast', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Day', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Metric', color: isDark ? '#F9FAFB' : '#4B5563' }, legend: { orientation: 'h' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('forecast-chart')) {
+            Plotly.newPlot('forecast-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderSportsAnalyticsChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const players = ['Player A','Player B','Player C','Player D','Player E','Player F'];
+        const performance = players.map(() => Math.random() * 20 + 60);
+        const salary = players.map(() => Math.random() * 50 + 50);
+        const data = [{ x: salary, y: performance, mode: 'markers', type: 'scatter', text: players, marker: { size: 12, color: '#22D3EE' } }];
+        const layout = { title: 'Sports Analytics: Performance vs Salary', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Salary (k$)', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Performance Score', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('sports-analytics-chart')) {
+            Plotly.newPlot('sports-analytics-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderBioinformaticsChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const genes = ['Gene1','Gene2','Gene3','Gene4','Gene5'];
+        const samples = ['Sample1','Sample2','Sample3','Sample4','Sample5'];
+        const z = Array.from({ length: genes.length }, () => Array.from({ length: samples.length }, () => Math.random() * 2 + 0.5));
+        const data = [{ z: z, x: samples, y: genes, type: 'heatmap', colorscale: 'YlGnBu' }];
+        const layout = { title: 'Gene Expression Heatmap', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('bioinformatics-chart')) {
+            Plotly.newPlot('bioinformatics-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderBusinessChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const quarters = ['Q1','Q2','Q3','Q4'];
+        const revenue = quarters.map(() => Math.random() * 200 + 300);
+        const profit = quarters.map((_, i) => revenue[i] * 0.2 + Math.random() * 50);
+        const data = [
+            { x: quarters, y: revenue, name: 'Revenue', type: 'bar', marker: { color: '#22D3EE' } },
+            { x: quarters, y: profit, name: 'Profit', type: 'bar', marker: { color: '#F472B6' } }
+        ];
+        const layout = { title: 'Business Revenue & Profit', barmode: 'group', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'USD (k)', color: isDark ? '#F9FAFB' : '#4B5563' }, legend: { orientation: 'h' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('business-chart')) {
+            Plotly.newPlot('business-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderEnergyChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const hours = Array.from({ length: 24 }, (_, i) => i);
+        const consumption = hours.map(h => 100 + 50 * Math.sin(h / 3) + Math.random() * 10);
+        const data = [{ x: hours, y: consumption, type: 'scatter', mode: 'lines', line: { color: '#22D3EE' } }];
+        const layout = { title: 'Energy Consumption Over 24h', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Hour', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'kWh', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('energy-chart')) {
+            Plotly.newPlot('energy-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderFinanceChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const days = Array.from({ length: 30 }, (_, i) => i + 1);
+        let open = 100;
+        const ohlc = days.map(day => {
+            const o = open;
+            const h = o + Math.random() * 10;
+            const l = o - Math.random() * 10;
+            const c = l + Math.random() * (h - l);
+            open = c;
+            return { x: day, open: o, high: h, low: l, close: c };
+        });
+        const data = [{ type: 'candlestick', x: ohlc.map(o => o.x), open: ohlc.map(o => o.open), high: ohlc.map(o => o.high), low: ohlc.map(o => o.low), close: ohlc.map(o => o.close), increasing: { line: { color: '#22D3EE' } }, decreasing: { line: { color: '#F472B6' } } }];
+        const layout = { title: 'Synthetic Stock Price', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Day', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Price', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('finance-chart')) {
+            Plotly.newPlot('finance-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderManufacturingChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const lines = ['Line 1','Line 2','Line 3','Line 4','Line 5'];
+        const defects = lines.map(() => Math.floor(Math.random() * 20 + 5));
+        const data = [{ x: lines, y: defects, type: 'bar', marker: { color: '#22D3EE' } }];
+        const layout = { title: 'Manufacturing Defect Count', paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, xaxis: { title: 'Line', color: isDark ? '#F9FAFB' : '#4B5563' }, yaxis: { title: 'Defects', color: isDark ? '#F9FAFB' : '#4B5563' } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('manufacturing-chart')) {
+            Plotly.newPlot('manufacturing-chart', data, layout, { responsive: true });
+        }
+    };
+
+    const renderScienceChart = () => {
+        const isDark = htmlEl.classList.contains('dark');
+        const theta = Array.from({ length: 50 }, (_, i) => i / 49 * 2 * Math.PI);
+        const r = theta.map(t => 1 + 0.5 * Math.sin(3 * t) + 0.3 * Math.cos(5 * t));
+        const data = [{ type: 'scatterpolar', r: r, theta: theta.map(t => t * 180 / Math.PI), mode: 'lines', line: { color: '#22D3EE' } }];
+        const layout = { title: 'Science & Engineering: Polar Wave', paper_bgcolor: 'rgba(0,0,0,0)', font: { color: isDark ? '#F9FAFB' : '#4B5563' }, polar: { radialaxis: { color: isDark ? '#F9FAFB' : '#4B5563' }, angularaxis: { color: isDark ? '#F9FAFB' : '#4B5563' } } };
+        if (typeof Plotly !== 'undefined' && document.getElementById('science-chart')) {
+            Plotly.newPlot('science-chart', data, layout, { responsive: true });
+        }
+    };
+
     // --- INITIALIZATION ---
     const init = () => {
         const today = new Date();
@@ -463,8 +668,28 @@ document.addEventListener('DOMContentLoaded', () => {
         renderInsightsGrid();
         setupEventListeners();
         themeCheck();
-        // Render Plotly demonstration chart
-        renderPlotlyDemo();
+            // Render Plotly demonstration chart
+            renderPlotlyDemo();
+            // Render additional demo charts
+            renderROCChart();
+            renderPieChart();
+            initLeafletMap();
+            // Render Plotly domain examples
+            renderGenerativeAIChart();
+            renderApiLatencyChart();
+            renderDashboardMetricsChart();
+            renderGeospatialChart();
+            renderSpectrogramChart();
+            renderMLDecisionChart();
+            renderNLPFrequencyChart();
+            renderForecastChart();
+            renderSportsAnalyticsChart();
+            renderBioinformaticsChart();
+            renderBusinessChart();
+            renderEnergyChart();
+            renderFinanceChart();
+            renderManufacturingChart();
+            renderScienceChart();
     };
     
     init();
