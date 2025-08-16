@@ -1,108 +1,269 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio – AI &amp; Medicine</title>
-    <!-- Primary site stylesheet -->
-    <link rel="stylesheet" href="style.css">
+    <title>Fatgezim "Zim" Bela | BCBA, MD Candidate, Data Scientist</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js and Adapters -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --background: #0B0F19; --surface: #111827; --primary: #22D3EE;
+            --text-light: #F9FAFB; --text-medium: #9CA3AF; --text-dark: #4B5563;
+        }
+        html.light {
+            --background: #F9FAFB; --surface: #FFFFFF; --primary: #0E7490;
+            --text-light: #111827; --text-medium: #4B5563; --text-dark: #9CA3AF;
+        }
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--background);
+            color: var(--text-medium); overflow-x: hidden; transition: background-color 0.3s, color 0.3s;
+        }
+        .section-bg { background-color: var(--surface); }
+        .text-primary { color: var(--primary); }
+        .text-light { color: var(--text-light); }
+        .text-medium { color: var(--text-medium); }
+        .text-dark { color: var(--text-dark); }
+        .border-dark { border-color: var(--text-dark); }
+        .ring-primary { ring-color: var(--primary); }
+        .btn-primary { background-color: var(--primary); color: #0B0F19; }
+        .btn-secondary { background-color: transparent; border: 1px solid var(--text-dark); }
+        
+        .client-list-item.active {
+            background-color: rgba(34, 211, 238, 0.1);
+            border-left-color: var(--primary);
+        }
+
+        .fade-in-section { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-section.is-visible { opacity: 1; transform: translateY(0); }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100; opacity: 0; visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .modal-overlay.visible {
+            opacity: 1; visibility: visible;
+        }
+        .modal-content {
+            width: 90%; max-width: 800px; max-height: 90vh;
+            overflow-y: auto; transform: scale(0.9);
+            transition: transform 0.3s;
+        }
+        .modal-overlay.visible .modal-content {
+            transform: scale(1);
+        }
+    </style>
 </head>
-<body>
-    <!-- Hero section with navigation and introductory text -->
-    <header class="hero-section" id="home">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="brand">AI&nbsp;Medicine&nbsp;Portfolio</div>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#research">Research</a></li>
-                    <li><a href="#viz">Visualisation</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+<body class="antialiased">
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 backdrop-blur-lg bg-opacity-80 border-b border-gray-200/10">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-xl font-bold text-light">Zim Bela</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#dashboard" class="hover:text-primary transition-colors">Dashboard</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="#insights" class="hover:text-primary transition-colors">Insights</a>
+                <a href="#contact" class="hover:text-primary transition-colors">Contact</a>
             </div>
-        </nav>
-        <div class="hero-content">
-            <h1>Hello, I’m <span class="highlight">Your&nbsp;Name</span></h1>
-            <p class="tagline">Data scientist &amp; machine learning engineer creating intelligent solutions for healthcare</p>
+            <div class="flex items-center gap-4">
+                 <button id="theme-toggle" class="w-10 h-10 rounded-full flex items-center justify-center focus:outline-none">
+                    <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                    <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
+                </button>
+                 <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-800 dark:text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
+            </div>
         </div>
-    </header>
-
-    <!-- About section detailing skills and areas of expertise -->
-    <section id="about" class="section about-section">
-        <h2>About Me</h2>
-        <p>I am a data scientist and machine learning engineer with a passion for using AI to solve challenges in medicine. My work spans predictive analytics, medical image analysis, interactive data visualisation and the development of reliable AI systems that augment human expertise.</p>
-        <h3>Core Competencies</h3>
-        <ul class="skills-list">
-            <li>Machine Learning (supervised, unsupervised &amp; reinforcement learning)</li>
-            <li>Deep Learning (CNNs, RNNs, transformers)</li>
-            <li>Data Visualisation &amp; Dashboard Design</li>
-            <li>Statistical Analysis &amp; Data Science</li>
-            <li>Applied AI in Healthcare &amp; Precision Medicine</li>
-        </ul>
-    </section>
-
-    <!-- Projects section showcasing example work -->
-    <section id="projects" class="section projects-section">
-        <h2>Featured Projects</h2>
-        <div class="projects-grid">
-            <article class="project-card">
-                <h3>Predictive Analytics for Patient Outcomes</h3>
-                <p>This project developed predictive models using electronic health records to identify patients at risk of complications and readmission. By analysing lifestyle factors, genetic data and past medical history, the model provides early warnings that enable clinicians to deliver personalised preventative care.</p>
-                <a class="btn" href="#" title="View details of the predictive analytics project">View Project</a>
-            </article>
-            <article class="project-card">
-                <h3>Deep Learning for Medical Imaging</h3>
-                <p>A convolutional neural network was trained to detect tumours in MRI and CT scans, demonstrating high sensitivity for early‑stage cancers. The network learns subtle patterns and correlations that radiologists may miss, supporting early diagnosis and improved patient outcomes.</p>
-                <a class="btn" href="#" title="View details of the imaging project">View Project</a>
-            </article>
-            <article class="project-card">
-                <h3>Interactive Dashboard for Healthcare Data</h3>
-                <p>Built an interactive dashboard that visualises trends in chronic disease prevalence using modern visualisation techniques. The tool helps clinicians and administrators identify patterns, outliers and future trends, making complex health data easy to interpret and act upon.</p>
-                <a class="btn" href="#" title="View details of the dashboard project">View Project</a>
-            </article>
+        <div id="mobile-menu" class="md:hidden bg-background absolute w-full transform -translate-x-full transition-transform">
+            <a href="#about" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">About</a>
+            <a href="#dashboard" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Dashboard</a>
+            <a href="#projects" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Projects</a>
+            <a href="#insights" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Insights</a>
+            <a href="#contact" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Contact</a>
         </div>
-    </section>
+    </nav>
 
-    <!-- Research section summarising literature and insights -->
-    <section id="research" class="section research-section">
-        <h2>Research &amp; Insights</h2>
-        <p>Artificial intelligence is poised to fundamentally transform medicine and healthcare delivery. Recent reviews highlight how AI systems—particularly machine learning and deep learning—can analyse multimodal data, recognise complex patterns and augment clinical decision‑making. Predictive healthcare models already identify trends and subtle abnormalities that escape even experienced professionals, supporting early diagnosis, personalised treatment and improved outcomes.</p>
-        <p>In addition to model development, it is essential to design AI systems that are trusted, reliable and human‑centred. Experts emphasise that AI augments rather than replaces clinicians, and effective systems must be developed with careful consideration of workflows, user needs and ethical implications.</p>
-        <h3>Data Visualisation in Healthcare</h3>
-        <p>Healthcare generates massive volumes of data that need to be translated into actionable insights. Data visualisation techniques—graphs, charts and interactive dashboards—enable clinicians, administrators and patients to quickly identify trends, outliers and patterns. Visualisation improves understanding of past and present trends and helps predict future directions, supporting evidence‑based practice and improved patient safety.</p>
-        <p>This portfolio includes an interactive visualisation demonstrating how the number of AI‑related publications in healthcare has grown over recent years. Scroll down to explore the chart.</p>
-    </section>
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center px-6 fade-in-section">
+            <div>
+                <h1 class="text-5xl md:text-7xl font-black text-light mb-4">Synthesizing Medicine, Behavior &amp; Data</h1>
+                <p class="text-xl md:text-2xl max-w-3xl mx-auto text-medium mb-8">I leverage my unique expertise as a BCBA, MD Candidate, and Data Scientist to build intelligent tools that drive meaningful clinical outcomes.</p>
+                <a href="#dashboard" class="btn-primary rounded-full px-8 py-3 font-semibold transition-transform hover:scale-105">Explore the AI Dashboard</a>
+            </div>
+        </section>
 
-    <!-- Interactive chart section -->
-    <section id="viz" class="section viz-section">
-        <h2>Interactive Data Visualisation</h2>
-        <p>The line chart below illustrates a hypothetical increase in the number of research publications applying AI techniques in medicine over time. Move your cursor over the points to see individual values.</p>
-        <canvas id="aiChart" width="600" height="400"></canvas>
-    </section>
+        <!-- About Section -->
+        <section id="about" class="py-24 section-bg fade-in-section">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-light mb-4">A Data-First Approach to Care</h2>
+                    <p class="text-lg mb-4">My work is founded on a simple principle: every clinical interaction is a data point. By applying rigorous data science methodologies to the nuanced world of behavior analysis and medicine, we can uncover patterns, predict outcomes, and personalize interventions with unprecedented accuracy.</p>
+                    <p class="text-lg">This perspective, informed by my own journey as an individual with Level 1 ASD and Combined-Type ADHD, allows me to bridge the gap between clinical intuition and empirical evidence, creating solutions that are both compassionate and effective.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-6 text-center">
+                    <div class="p-6 rounded-lg bg-background"><h3 class="text-4xl font-bold text-primary">BCBA</h3><p>Clinical Expertise</p></div>
+                    <div class="p-6 rounded-lg bg-background"><h3 class="text-4xl font-bold text-primary">MD Cand.</h3><p>Medical Foundation</p></div>
+                    <div class="p-6 rounded-lg bg-background col-span-2"><h3 class="text-4xl font-bold text-primary">Data Scientist</h3><p>Analytical Insight</p></div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Contact information -->
-    <section id="contact" class="section contact-section">
-        <h2>Get in Touch</h2>
-        <p>If you’d like to collaborate, discuss research opportunities or learn more about my work, feel free to reach out.</p>
-        <ul class="contact-list">
-            <li><strong>Email:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a></li>
-            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/username" target="_blank">linkedin.com/in/username</a></li>
-            <li><strong>GitHub:</strong> <a href="https://github.com/username" target="_blank">github.com/username</a></li>
-        </ul>
-    </section>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="py-24 fade-in-section">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-light">AI Insights Dashboard</h2>
+                    <p class="text-lg text-medium mt-2">A functional demo of a data-driven tool for clinical oversight.</p>
+                </header>
+                <main class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    <div class="lg:col-span-1">
+                        <div class="p-6 rounded-lg section-bg">
+                            <h3 class="text-xl font-bold text-light mb-4">Client Roster</h3>
+                            <div id="client-list" class="space-y-2"></div>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-3 p-6 rounded-lg section-bg min-h-[500px]" id="dashboard-content">
+                        <div id="no-client-selected" class="flex items-center justify-center h-full">
+                            <p class="text-xl text-medium">Select a client to view their data.</p>
+                        </div>
+                        <div id="client-dashboard-view" class="hidden">
+                            <div class="flex justify-between items-center mb-6">
+                                <h3 id="current-client-name" class="text-2xl font-bold text-light"></h3>
+                            </div>
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="p-4 bg-background rounded-lg"><p class="text-sm text-medium">Skill Mastery</p><p id="kpi-mastery" class="text-2xl font-bold text-light"></p></div>
+                                <div class="p-4 bg-background rounded-lg"><p class="text-sm text-medium">Behavior Reduction</p><p id="kpi-behavior" class="text-2xl font-bold text-light"></p></div>
+                                <div class="p-4 bg-background rounded-lg"><p class="text-sm text-medium">Parent Training</p><p id="kpi-parent-training" class="text-2xl font-bold text-light"></p></div>
+                                <div class="p-4 bg-background rounded-lg"><p class="text-sm text-medium">Next Milestone</p><p id="kpi-forecast" class="text-2xl font-bold text-light"></p></div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-light mb-2">Weekly Progress Overview</h4>
+                                <div class="h-80"><canvas id="main-chart"></canvas></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </section>
 
-    <!-- Footer with citations to external sources -->
-    <footer class="footer">
-        <p>&copy; 2025 Your Name. All rights reserved.</p>
-        <p class="citations">References: 
-            <a href="https://eithealth.eu/news-article/machine-learning-in-healthcare-uses-benefits-and-pioneers-in-the-field/" target="_blank">[1] EIT Health – Machine learning in healthcare</a>,
-            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8285156/" target="_blank">[2] Artificial intelligence in healthcare</a>,
-            <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9741729/" target="_blank">[3] Visualisation techniques in healthcare applications</a>
-        </p>
+        <!-- Projects Section -->
+        <section id="projects" class="py-24 section-bg fade-in-section">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-light">Data Science Projects</h2>
+                    <p class="text-lg text-medium mt-2">Interactive examples of my analytical work.</p>
+                </header>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Behavioral Phenotype Clustering</h3>
+                        <p class="mb-4">Using K-Means clustering to identify distinct behavioral phenotypes. This allows for targeted treatment tracks, such as prioritizing communication for 'Escape-Motivated' profiles.</p>
+                        <div class="h-64"><canvas id="project-chart-1"></canvas></div>
+                    </div>
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Intervention Forecasting</h3>
+                        <p class="mb-4">Applying time-series analysis to forecast skill acquisition rates and predict dates for milestone achievement.</p>
+                        <div class="h-64"><canvas id="project-chart-2"></canvas></div>
+                    </div>
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Session Sentiment Analysis</h3>
+                        <p class="mb-4">Using NLP on session notes to quantify subjective progress and correlate with objective behavioral data.</p>
+                        <div class="h-64"><canvas id="project-chart-3"></canvas></div>
+                    </div>
+                    <div class="p-6 rounded-lg bg-background">
+                        <h3 class="text-xl font-bold text-light mb-2">Feature Importance</h3>
+                        <p class="mb-4">A model identifying which factors (e.g., parent training) are most predictive of positive client outcomes.</p>
+                        <div class="h-64"><canvas id="project-chart-4"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights & Publications Section -->
+        <section id="insights" class="py-24 fade-in-section">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-light">Insights &amp; Publications</h2>
+                    <p class="text-lg text-medium mt-2">Exploring the frontiers of clinical data science.</p>
+                </header>
+                <div id="insights-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Insight cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-24 section-bg fade-in-section">
+            <div class="container mx-auto px-6">
+                <header class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-light">Let's Connect</h2>
+                    <p class="text-lg text-medium mt-2">I'm available for consultations and collaborations.</p>
+                </header>
+                <div class="max-w-xl mx-auto">
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label for="name" class="block mb-1 text-medium">Full Name</label><input type="text" id="name" name="name" class="w-full p-3 rounded-lg bg-background border border-dark focus:ring-2 ring-primary outline-none" required></div>
+                            <div><label for="email" class="block mb-1 text-medium">Email Address</label><input type="email" id="email" name="email" class="w-full p-3 rounded-lg bg-background border border-dark focus:ring-2 ring-primary outline-none" required></div>
+                        </div>
+                        <div><label for="message" class="block mb-1 text-medium">Message</label><textarea id="message" name="message" rows="5" class="w-full p-3 rounded-lg bg-background border border-dark focus:ring-2 ring-primary outline-none" required></textarea></div>
+                        <div class="text-center"><button type="submit" class="btn-primary rounded-full px-8 py-3 font-semibold transition-transform hover:scale-105">Send Message</button></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 border-t border-dark">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center gap-6 mb-6">
+                <a href="https://www.linkedin.com/in/fatgezimzimbela/" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-colors">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                </a>
+                 <a href="mailto:fatgezimbela1@gmail.com" class="hover:text-primary transition-colors">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                </a>
+            </div>
+            <p class="text-medium">&copy; 2025 Fatgezim "Zim" Bela. All Rights Reserved.</p>
+        </div>
     </footer>
 
-    <!-- Chart initialisation script -->
+    <!-- Insight Modal -->
+    <div id="insight-modal" class="modal-overlay">
+        <div class="modal-content section-bg p-8 rounded-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h2 id="insight-modal-title" class="text-2xl font-bold text-light"></h2>
+                <button id="insight-modal-close" class="text-2xl text-medium hover:text-light">&times;</button>
+            </div>
+            <div id="insight-modal-body">
+                <div class="h-64 mb-6 rounded-lg bg-background flex items-center justify-center"><canvas id="insight-modal-chart"></canvas></div>
+                <div id="insight-modal-summary" class="text-lg text-medium mb-4"></div>
+                <button id="expand-insight-btn" class="font-semibold text-primary mb-4">Read Full Article &darr;</button>
+                <div id="insight-modal-full" class="prose dark:prose-invert max-w-none text-medium space-y-4 hidden"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include separate script file for logic -->
     <script src="script.js"></script>
 </body>
 </html>
