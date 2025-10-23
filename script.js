@@ -6,43 +6,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getEl = id => document.getElementById(id);
     const htmlEl = document.documentElement;
+    const isDarkMode = () => !htmlEl.classList.contains('light');
 
     // --- THEME TOGGLE ---
     const themeToggle = getEl('theme-toggle');
     const sunIcon = getEl('theme-icon-sun');
     const moonIcon = getEl('theme-icon-moon');
 
-        // Set dark mode by default if no preference is stored
+    const ensureThemePreference = () => {
         if (!localStorage.getItem('theme')) {
-            localStorage.setItem('theme', 'dark');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            localStorage.setItem('theme', prefersDark ? 'dark' : 'light');
         }
+    };
 
-        const themeCheck = () => {
-        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlEl.classList.add('dark');
-            moonIcon.classList.add('hidden');
-            sunIcon.classList.remove('hidden');
-        } else {
-            htmlEl.classList.remove('dark');
+    const applyTheme = (theme) => {
+        if (theme === 'light') {
+            htmlEl.classList.add('light');
             sunIcon.classList.add('hidden');
             moonIcon.classList.remove('hidden');
+        } else {
+            htmlEl.classList.remove('light');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
         }
+    };
+
+    const themeCheck = () => {
+        ensureThemePreference();
+        applyTheme(localStorage.getItem('theme'));
     };
 
     const themeSwitch = () => {
-        htmlEl.classList.toggle('dark');
-        localStorage.setItem('theme', htmlEl.classList.contains('dark') ? 'dark' : 'light');
-        themeCheck();
+        const nextTheme = isDarkMode() ? 'light' : 'dark';
+        localStorage.setItem('theme', nextTheme);
+        applyTheme(nextTheme);
         if (state.activeClientId) renderMainChart(getActiveClient());
-        renderProjectCharts();
+        rerenderVisualizations();
     };
 
     themeToggle.addEventListener('click', themeSwitch);
-
-        // Ensure dark mode is selected by default on first load
-        if (!localStorage.getItem('theme')) {
-            localStorage.setItem('theme', 'dark');
-        }
 
     // --- DATA GENERATION ---
     const generateDummyData = (today) => {
@@ -98,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderMainChart = (client) => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const textColor = isDark ? '#9CA3AF' : '#4B5563';
         const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
         
@@ -124,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const renderProjectCharts = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const textColor = isDark ? '#9CA3AF' : '#4B5563';
         const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
         
@@ -561,7 +564,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const epochs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
         const accuracy = [0.545244129544237,0.5672789228047704,0.564233600241796,0.5572959251407621,0.5712322717601058,0.6116175350540323,0.6597095979615637,0.6896807473987014,0.6923635545572526,0.6836793666733189,0.6900002938034788,0.723902812459987,0.7726050111047993,0.8097182206708461,0.8195086352047135,0.8113629005000481,0.8111580752436134,0.8374703825968497,0.8844963162898886,0.9273883575218288];
         const data = [{ x: epochs, y: accuracy, mode: 'lines+markers', name: 'Accuracy', line: { color: '#22D3EE' } }];
-        const isDark = document.documentElement.classList.contains('dark');
+        const isDark = isDarkMode();
         const layout = {
             title: 'Model Training Accuracy over Epochs',
             xaxis: { title: 'Epoch', color: isDark ? '#F9FAFB' : '#4B5563' },
@@ -581,7 +584,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = getEl('demo-roc-chart')?.getContext('2d');
         if (!ctx) return;
         if (chartInstances['demo-roc-chart']) chartInstances['demo-roc-chart'].destroy();
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const textColor = isDark ? '#9CA3AF' : '#4B5563';
         const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
         chartInstances['demo-roc-chart'] = new Chart(ctx, {
@@ -606,7 +609,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = getEl('demo-pie-chart')?.getContext('2d');
         if (!ctx) return;
         if (chartInstances['demo-pie-chart']) chartInstances['demo-pie-chart'].destroy();
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         chartInstances['demo-pie-chart'] = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -638,54 +641,54 @@ document.addEventListener('DOMContentLoaded', () => {
         markers.forEach(m => L.marker(m.coords).addTo(map).bindPopup(m.label));
     };
 
-        // Plotly map correlating iron deficiency and autism prevalence
-        const renderIronAutismMap = () => {
-            // Ensure Plotly and container exist
-            if (typeof Plotly === 'undefined') return;
-            const container = getEl('iron-autism-map');
-            if (!container) return;
-            const isDark = htmlEl.classList.contains('dark');
-            // Example data for selected U.S. states (approximate values)
-            const states = ['Virginia', 'California', 'New York', 'Texas', 'Florida'];
-            const lat = [37.5, 36.7783, 43.0, 31.0, 27.8];
-            const lon = [-78.6569, -119.4179, -75.0, -99.5, -81.0];
-            const iron = [15, 20, 13, 18, 16]; // iron deficiency prevalence (%)
-            const autism = [1.8, 2.0, 1.6, 1.7, 1.5]; // autism prevalence (approx. per 100 children)
-            const text = states.map((s, i) => `${s}<br>Iron deficiency: ${iron[i]}%<br>Autism prevalence: ${autism[i]}%`);
-            const data = [{
-                type: 'scattergeo',
-                mode: 'markers',
-                lat: lat,
-                lon: lon,
-                text: text,
-                marker: {
-                    size: autism.map(v => v * 12),
-                    color: iron,
-                    colorscale: 'Blues',
-                    colorbar: { title: 'Iron deficiency (%)' },
-                    line: { color: isDark ? '#0B0F19' : '#FFFFFF' }
-                }
-            }];
-            const layout = {
-                title: 'Iron Deficiency and Autism Prevalence by State',
-                geo: {
-                    scope: 'usa',
-                    projection: { type: 'albers usa' },
-                    showland: true,
-                    landcolor: isDark ? '#111827' : '#F9FAFB',
-                    subunitcolor: isDark ? '#374151' : '#DDDDDD',
-                    countrycolor: isDark ? '#374151' : '#AAAAAA'
-                },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                font: { color: isDark ? '#F9FAFB' : '#4B5563' }
-            };
-            Plotly.newPlot(container, data, layout, { responsive: true });
+    // Plotly map correlating iron deficiency and autism prevalence
+    const renderIronAutismMap = () => {
+        // Ensure Plotly and container exist
+        if (typeof Plotly === 'undefined') return;
+        const container = getEl('iron-autism-map');
+        if (!container) return;
+        const isDark = isDarkMode();
+        // Example data for selected U.S. states (approximate values)
+        const states = ['Virginia', 'California', 'New York', 'Texas', 'Florida'];
+        const lat = [37.5, 36.7783, 43.0, 31.0, 27.8];
+        const lon = [-78.6569, -119.4179, -75.0, -99.5, -81.0];
+        const iron = [15, 20, 13, 18, 16]; // iron deficiency prevalence (%)
+        const autism = [1.8, 2.0, 1.6, 1.7, 1.5]; // autism prevalence (approx. per 100 children)
+        const text = states.map((s, i) => `${s}<br>Iron deficiency: ${iron[i]}%<br>Autism prevalence: ${autism[i]}%`);
+        const data = [{
+            type: 'scattergeo',
+            mode: 'markers',
+            lat: lat,
+            lon: lon,
+            text: text,
+            marker: {
+                size: autism.map(v => v * 12),
+                color: iron,
+                colorscale: 'Blues',
+                colorbar: { title: 'Iron deficiency (%)' },
+                line: { color: isDark ? '#0B0F19' : '#FFFFFF' }
+            }
+        }];
+        const layout = {
+            title: 'Iron Deficiency and Autism Prevalence by State',
+            geo: {
+                scope: 'usa',
+                projection: { type: 'albers usa' },
+                showland: true,
+                landcolor: isDark ? '#111827' : '#F9FAFB',
+                subunitcolor: isDark ? '#374151' : '#DDDDDD',
+                countrycolor: isDark ? '#374151' : '#AAAAAA'
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            font: { color: isDark ? '#F9FAFB' : '#4B5563' }
         };
+        Plotly.newPlot(container, data, layout, { responsive: true });
+    };
 
     // Plotly domain example render functions
     const renderGenerativeAIChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const x = Array.from({length: 50}, (_, i) => i + 1);
         const y = x.map(i => Math.exp(-i/10) + (Math.random() - 0.5) * 0.1);
         const data = [{ x: x, y: y, type: 'scatter', mode: 'lines+markers', line: { color: '#22D3EE' }, marker: { color: '#F472B6', size: 5 } }];
@@ -696,7 +699,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderApiLatencyChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const endpoints = ['Login', 'GetUser', 'UpdateRecord', 'CreateSession', 'Logout'];
         const latency = endpoints.map(() => Math.random() * 500 + 100);
         const data = [{ x: endpoints, y: latency, type: 'bar', marker: { color: '#22D3EE' } }];
@@ -707,7 +710,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderDashboardMetricsChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
         const accuracy = months.map(() => Math.random() * 20 + 80);
         const precision = months.map(() => Math.random() * 15 + 75);
@@ -724,7 +727,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderGeospatialChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const lats = [36.8508, 38.9072, 34.0522, 40.7128];
         const longs = [-76.2859, -77.0369, -118.2437, -74.0060];
         const texts = ['Norfolk, VA', 'Washington, DC', 'Los Angeles, CA', 'New York, NY'];
@@ -736,7 +739,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderSpectrogramChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const x = Array.from({ length: 30 }, (_, i) => i);
         const y = Array.from({ length: 30 }, (_, i) => i);
         const z = Array.from({ length: 30 }, () => Array.from({ length: 30 }, () => Math.random()));
@@ -748,7 +751,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderMLDecisionChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const x0 = Array.from({ length: 50 }, () => [Math.random() * 2 + 1, Math.random() * 2 + 1]);
         const x1 = Array.from({ length: 50 }, () => [Math.random() * 2 + 3, Math.random() * 2 + 3]);
         const data = [
@@ -762,7 +765,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderNLPFrequencyChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const words = ['analysis','behavior','data','model','therapy','patient','research','science','medical','learning'];
         const counts = words.map(() => Math.floor(Math.random() * 50 + 10));
         const data = [{ x: words, y: counts, type: 'bar', marker: { color: '#22D3EE' } }];
@@ -773,7 +776,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderForecastChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const days = Array.from({ length: 15 }, (_, i) => i + 1);
         const actual = days.map(d => Math.sin(d/2) * 10 + 50 + (Math.random() - 0.5) * 5);
         const forecast = days.map(d => Math.sin(d/2) * 10 + 50 + (Math.random() - 0.5) * 3 + 3);
@@ -788,7 +791,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderSportsAnalyticsChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const players = ['Player A','Player B','Player C','Player D','Player E','Player F'];
         const performance = players.map(() => Math.random() * 20 + 60);
         const salary = players.map(() => Math.random() * 50 + 50);
@@ -800,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderBioinformaticsChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const genes = ['Gene1','Gene2','Gene3','Gene4','Gene5'];
         const samples = ['Sample1','Sample2','Sample3','Sample4','Sample5'];
         const z = Array.from({ length: genes.length }, () => Array.from({ length: samples.length }, () => Math.random() * 2 + 0.5));
@@ -812,7 +815,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderBusinessChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const quarters = ['Q1','Q2','Q3','Q4'];
         const revenue = quarters.map(() => Math.random() * 200 + 300);
         const profit = quarters.map((_, i) => revenue[i] * 0.2 + Math.random() * 50);
@@ -827,7 +830,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderEnergyChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const hours = Array.from({ length: 24 }, (_, i) => i);
         const consumption = hours.map(h => 100 + 50 * Math.sin(h / 3) + Math.random() * 10);
         const data = [{ x: hours, y: consumption, type: 'scatter', mode: 'lines', line: { color: '#22D3EE' } }];
@@ -838,7 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderFinanceChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const days = Array.from({ length: 30 }, (_, i) => i + 1);
         let open = 100;
         const ohlc = days.map(day => {
@@ -857,7 +860,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderManufacturingChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const lines = ['Line 1','Line 2','Line 3','Line 4','Line 5'];
         const defects = lines.map(() => Math.floor(Math.random() * 20 + 5));
         const data = [{ x: lines, y: defects, type: 'bar', marker: { color: '#22D3EE' } }];
@@ -868,7 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderScienceChart = () => {
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const theta = Array.from({ length: 50 }, (_, i) => i / 49 * 2 * Math.PI);
         const r = theta.map(t => 1 + 0.5 * Math.sin(3 * t) + 0.3 * Math.cos(5 * t));
         const data = [{ type: 'scatterpolar', r: r, theta: theta.map(t => t * 180 / Math.PI), mode: 'lines', line: { color: '#22D3EE' } }];
@@ -886,7 +889,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof Plotly === 'undefined') return;
         const container = getEl('roc-plotly-chart');
         if (!container) return;
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const fpr = [0, 0.05, 0.1, 0.2, 1.0];
         const tpr = [0, 0.7, 0.85, 0.95, 1.0];
         const data = [
@@ -918,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof Plotly === 'undefined') return;
         const container = getEl('clinic-map-chart');
         if (!container) return;
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const lat = [36.8508, 38.9072, 34.0522, 40.7128, 30.2672];
         const lon = [-76.2859, -77.0369, -118.2437, -74.0060, -97.7431];
         const texts = ['Norfolk, VA', 'Washington, DC', 'Los Angeles, CA', 'New York, NY', 'Austin, TX'];
@@ -956,7 +959,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof Plotly === 'undefined') return;
         const container = getEl('gene-heatmap-chart');
         if (!container) return;
-        const isDark = htmlEl.classList.contains('dark');
+        const isDark = isDarkMode();
         const genes = ['TP53','BRCA1','EGFR','KRAS','PIK3CA','PTEN'];
         const samples = ['Sample1','Sample2','Sample3','Sample4','Sample5','Sample6'];
         // Generate synthetic gene expression values between 0 and 2.5
@@ -975,42 +978,41 @@ document.addEventListener('DOMContentLoaded', () => {
         Plotly.newPlot(container, data, layout, { responsive: true });
     };
 
+    const rerenderVisualizations = () => {
+        renderProjectCharts();
+        renderPlotlyDemo();
+        renderROCChart();
+        renderPieChart();
+        renderIronAutismMap();
+        renderROCPlotlyChart();
+        renderClinicMapPlotly();
+        renderGeneHeatmapPlotly();
+        renderGenerativeAIChart();
+        renderApiLatencyChart();
+        renderDashboardMetricsChart();
+        renderGeospatialChart();
+        renderSpectrogramChart();
+        renderMLDecisionChart();
+        renderNLPFrequencyChart();
+        renderForecastChart();
+        renderSportsAnalyticsChart();
+        renderBioinformaticsChart();
+        renderBusinessChart();
+        renderEnergyChart();
+        renderFinanceChart();
+        renderManufacturingChart();
+        renderScienceChart();
+    };
+
     // --- INITIALIZATION ---
     const init = () => {
         const today = new Date();
         state.clients = generateDummyData(today);
         renderClientList();
-        renderProjectCharts();
         renderInsightsGrid();
         setupEventListeners();
         themeCheck();
-            // Render Plotly demonstration chart
-            renderPlotlyDemo();
-            // Render additional demo charts
-                renderROCChart();
-                renderPieChart();
-                // Display correlation map of iron deficiency and autism instead of Leaflet map
-                renderIronAutismMap();
-            // Render Plotly charts for dedicated project cards
-            renderROCPlotlyChart();
-            renderClinicMapPlotly();
-            renderGeneHeatmapPlotly();
-            // Render Plotly domain examples
-            renderGenerativeAIChart();
-            renderApiLatencyChart();
-            renderDashboardMetricsChart();
-            renderGeospatialChart();
-            renderSpectrogramChart();
-            renderMLDecisionChart();
-            renderNLPFrequencyChart();
-            renderForecastChart();
-            renderSportsAnalyticsChart();
-            renderBioinformaticsChart();
-            renderBusinessChart();
-            renderEnergyChart();
-            renderFinanceChart();
-            renderManufacturingChart();
-            renderScienceChart();
+        rerenderVisualizations();
     };
     
     init();

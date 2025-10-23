@@ -37,6 +37,8 @@
             color: var(--text-medium); overflow-x: hidden; transition: background-color 0.3s, color 0.3s;
         }
         .section-bg { background-color: var(--surface); }
+        .bg-background { background-color: var(--background); }
+        .bg-surface { background-color: var(--surface); }
         .text-primary { color: var(--primary); }
         .text-light { color: var(--text-light); }
         .text-medium { color: var(--text-medium); }
@@ -45,6 +47,9 @@
         .ring-primary { ring-color: var(--primary); }
         .btn-primary { background-color: var(--primary); color: #0B0F19; }
         .btn-secondary { background-color: transparent; border: 1px solid var(--text-dark); }
+
+        .nav-surface { background-color: rgba(17, 24, 39, 0.85); }
+        html.light .nav-surface { background-color: rgba(255, 255, 255, 0.85); }
         
         .client-list-item.active {
             background-color: rgba(34, 211, 238, 0.1);
@@ -77,7 +82,7 @@
 </head>
 <body class="antialiased">
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 backdrop-blur-lg bg-opacity-80 border-b border-gray-200/10">
+    <nav class="sticky top-0 z-50 nav-surface backdrop-blur-lg border-b border-gray-200/10">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#home" class="text-xl font-bold text-light">Zim Bela</a>
             <div class="hidden md:flex items-center space-x-8">
@@ -99,7 +104,7 @@
                 </div>
             </div>
         </div>
-        <div id="mobile-menu" class="md:hidden bg-background absolute w-full transform -translate-x-full transition-transform">
+        <div id="mobile-menu" class="md:hidden nav-surface absolute w-full transform -translate-x-full transition-transform">
             <a href="#about" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">About</a>
             <a href="#dashboard" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Dashboard</a>
             <a href="#projects" class="mobile-nav-link block py-2 px-4 text-sm hover:text-primary">Projects</a>
